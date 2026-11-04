@@ -1,0 +1,1246 @@
+/* =====================================================================
+   ESCAPE ROOM — MULHERES DA CIÊNCIA · ESTILO DA PÁGINA PRINCIPAL
+   Visual retrô azul-noite e latão, igual ao site. As salas têm o próprio
+   style.css dentro de cada pasta (salaN/).
+   ===================================================================== */
+
+/* Fonte pixel (Silkscreen) incluída no pacote, para funcionar sem internet. */
+@font-face {
+  font-family: "Silkscreen";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fontes/silkscreen-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF,
+    U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Silkscreen";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fontes/silkscreen-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Define as cores reutilizadas no projeto. */
+:root {
+  --background: oklch(0.14 0.03 262);
+  --foreground: oklch(0.93 0.03 85);
+  --card: oklch(0.18 0.035 262);
+  --primary: oklch(0.78 0.13 80);
+  --primary-foreground: oklch(0.16 0.03 262);
+  --secondary: oklch(0.33 0.08 35);
+  --secondary-foreground: oklch(0.93 0.03 85);
+  --muted: oklch(0.25 0.04 262);
+  --muted-foreground: oklch(0.74 0.03 85);
+  --destructive: oklch(0.65 0.2 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.56 0.09 70);
+
+  /* Fontes: serifada para títulos, máquina de escrever para textos e pixel para destaques. */
+  --fonte-serif: Georgia, "Times New Roman", serif;
+  --fonte-mono: "Courier New", Courier, monospace;
+  --fonte-pixel: "Silkscreen", "Courier New", monospace;
+}
+
+/* Ajuste global do modelo de caixa. */
+* {
+  box-sizing: border-box;
+  border-color: var(--border);
+}
+
+/* Configuração geral da página: fundo, texto e fonte. */
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--fonte-mono);
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+p,
+ol,
+figure,
+blockquote {
+  margin: 0;
+}
+
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.sem-script {
+  padding: 2rem;
+  text-align: center;
+}
+
+/* ===== PEÇAS REAPROVEITADAS ===== */
+
+.fonte-pixel {
+  font-family: var(--fonte-pixel);
+  color: var(--primary);
+}
+
+/* Pequeno texto em pixel acima dos títulos. */
+.sobretitulo {
+  font-family: var(--fonte-pixel);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--primary);
+}
+
+.titulo-secao {
+  margin-top: 0.25rem;
+  font-family: var(--fonte-serif);
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 400;
+}
+
+/* Botão principal em latão com sombra deslocada (estilo pixel). */
+.botao-destaque {
+  border: 2px solid var(--primary);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 1rem 1.5rem;
+  font-family: var(--fonte-pixel);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.025em;
+  box-shadow: 5px 5px 0 var(--secondary);
+  transition: transform 0.15s;
+}
+
+.botao-destaque:hover {
+  transform: translateY(-2px);
+}
+
+/* Botão só com contorno (ex.: "CONTINUAR"). */
+.botao-contorno {
+  border: 2px solid var(--primary);
+  padding: 0.875rem 1.25rem;
+  font-family: var(--fonte-pixel);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--primary);
+}
+
+.botao-contorno:hover,
+.botao-contorno-pequeno:hover {
+  background: var(--muted);
+}
+
+.botao-contorno-pequeno {
+  display: inline-block;
+  margin-top: 1.25rem;
+  border: 2px solid var(--primary);
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* Botão pequeno preenchido (ex.: "JOGAR"). */
+.botao-pequeno {
+  display: inline-block;
+  width: fit-content;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+}
+
+.botao-pequeno:hover {
+  opacity: 0.9;
+}
+
+.link-forte {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-underline-offset: 4px;
+}
+
+.link-forte:hover {
+  text-decoration: underline;
+}
+
+/* Fileira com as cinco chaves da jornada. */
+.chaves {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+}
+
+.chaves li {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid color-mix(in oklch, var(--muted-foreground) 40%, transparent);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  color: color-mix(in oklch, var(--muted-foreground) 50%, transparent);
+}
+
+.chaves li.tem {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.chaves-grandes li {
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+/* Brilho pulsante das chaves conquistadas. */
+@keyframes brilho {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in oklch, var(--primary) 60%, transparent);
+  }
+  50% {
+    box-shadow: 0 0 24px 4px color-mix(in oklch, var(--primary) 60%, transparent);
+  }
+}
+
+/* Piscar do cronômetro nos últimos 5 minutos. */
+@keyframes piscar {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.pagina {
+  min-height: 100vh;
+}
+
+/* ===== PÁGINA INICIAL ===== */
+
+/* Abertura com o mosaico dos cinco cenários ao fundo. */
+.abertura {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 4px solid var(--primary);
+}
+
+.abertura-mosaico {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  opacity: 0.25;
+}
+
+.abertura-mosaico img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+
+.abertura-veu {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklch, var(--background) 70%, transparent),
+    color-mix(in oklch, var(--background) 85%, transparent),
+    var(--background)
+  );
+}
+
+/* Texto e botões à esquerda; a logo vai para a direita em telas largas
+   e para baixo do texto no celular. */
+.abertura-conteudo {
+  position: relative;
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 3.5rem 1rem;
+  display: grid;
+  align-items: center;
+  gap: 2rem;
+}
+
+.abertura-logo {
+  display: block;
+  margin: 0 auto;
+  width: 12rem;
+  height: auto;
+  image-rendering: pixelated;
+}
+
+.titulo-principal {
+  margin-top: 0.75rem;
+  max-width: 48rem;
+  font-family: var(--fonte-serif);
+  font-size: 2.25rem;
+  line-height: 1.25;
+  font-weight: 400;
+}
+
+.abertura-texto {
+  margin-top: 1rem;
+  max-width: 42rem;
+  font-size: 0.875rem;
+  line-height: 1.625;
+  color: var(--muted-foreground);
+}
+
+.abertura-acoes {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.abertura-status {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--muted-foreground);
+}
+
+/* Grade com os cartões das cinco salas. */
+.secao-salas {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+.grade-salas {
+  margin-top: 2rem;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.cartao-sala {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--primary);
+  background: var(--card);
+  box-shadow: 6px 6px 0 var(--muted);
+}
+
+.cartao-imagem {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-bottom: 2px solid var(--primary);
+}
+
+.cartao-imagem img,
+.galeria img {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  image-rendering: pixelated;
+  transition: transform 0.3s;
+}
+
+.cartao-imagem:hover img,
+.galeria a:hover img {
+  transform: scale(1.05);
+}
+
+/* Selo com o símbolo da chave no canto da imagem. */
+.selo-chave {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 2px solid var(--primary);
+  background: color-mix(in oklch, var(--background) 80%, transparent);
+  color: var(--primary);
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.selo-chave.tem {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.cartao-corpo {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1.25rem;
+}
+
+.etiqueta-fase {
+  width: fit-content;
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  padding: 0.25rem 0.5rem;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.cartao-corpo h3 {
+  margin-top: 0.5rem;
+  font-family: var(--fonte-serif);
+  font-size: 1.25rem;
+  line-height: 1.375;
+  font-weight: 400;
+}
+
+.lugar {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+.cartao-acoes {
+  margin-top: auto;
+  padding-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Cartão tracejado que leva ao Memorial. */
+.cartao-memorial {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 2px dashed var(--primary);
+  padding: 1.5rem;
+}
+
+.cartao-memorial h3 {
+  margin-top: 0.5rem;
+  font-family: var(--fonte-serif);
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 400;
+}
+
+.cartao-memorial p:not(.sobretitulo) {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.625;
+  color: var(--muted-foreground);
+}
+
+.nota {
+  margin-top: 2.5rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--muted-foreground);
+}
+
+/* ===== MEMORIAL DAS PIONEIRAS ===== */
+
+.barra-simples {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--primary);
+  background: var(--card);
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.barra-simples .link-forte {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.memorial-topo {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 3rem 1rem 2rem;
+  text-align: center;
+}
+
+.titulo-memorial {
+  margin-top: 0.75rem;
+  font-family: var(--fonte-serif);
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  font-weight: 400;
+}
+
+.memorial-texto {
+  max-width: 42rem;
+  margin: 1rem auto 0;
+  font-size: 0.875rem;
+  line-height: 1.625;
+  color: var(--muted-foreground);
+}
+
+.memorial-vitoria {
+  margin-top: 1.5rem;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  border: 2px solid var(--primary);
+  background: var(--card);
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+}
+
+.memorial-vitoria strong {
+  color: var(--primary);
+}
+
+/* Botões de atalho para cada pioneira. */
+.atalhos-pioneiras {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.atalhos-pioneiras button {
+  border: 1px solid var(--primary);
+  padding: 0.25rem 0.75rem;
+  font-family: var(--fonte-mono);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--primary);
+}
+
+.atalhos-pioneiras button:hover {
+  background: var(--muted);
+}
+
+/* Botão fixo que volta aos atalhos das pioneiras. */
+.botao-indice {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 20;
+  border: 2px solid var(--primary);
+  background: var(--primary);
+  padding: 0.75rem 1rem;
+  font-family: var(--fonte-pixel);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--primary-foreground);
+  box-shadow: 4px 4px 0 var(--secondary);
+  transition: transform 0.15s;
+}
+
+.botao-indice:hover {
+  transform: translateY(-2px);
+}
+
+/* Rodapé de créditos (página inicial e Memorial). */
+.rodape {
+  border-top: 2px solid var(--primary);
+  background: var(--card);
+  padding: 1.5rem 1rem;
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1.625;
+  color: var(--muted-foreground);
+}
+
+.rodape-titulo {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.rodape p + p {
+  margin-top: 0.25rem;
+}
+
+.memorial-lista {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 1rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* Ficha de cada pioneira. */
+.ficha {
+  scroll-margin-top: 1.5rem;
+  border: 2px solid var(--primary);
+  background: var(--card);
+  box-shadow: 8px 8px 0 var(--muted);
+}
+
+.ficha-topo {
+  display: grid;
+}
+
+.ficha-retrato {
+  position: relative;
+  border-bottom: 2px solid var(--primary);
+}
+
+.ficha-retrato img {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+
+.ficha-retrato figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: color-mix(in oklch, var(--background) 85%, transparent);
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.ficha-retrato figcaption span {
+  color: var(--primary);
+}
+
+.ficha-texto {
+  padding: 1.5rem;
+}
+
+.ficha-texto .destaque {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.ficha-texto h2 {
+  margin-top: 0.25rem;
+  font-family: var(--fonte-serif);
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 400;
+}
+
+.area {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  color: var(--muted-foreground);
+}
+
+.bio {
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.625;
+}
+
+.ficha blockquote {
+  margin-top: 1.25rem;
+  border-left: 4px solid var(--primary);
+  padding-left: 1rem;
+  font-family: var(--fonte-serif);
+  font-size: 1.125rem;
+  line-height: 1.375;
+  font-style: italic;
+  color: var(--primary);
+}
+
+.ficha-rodape {
+  display: grid;
+  gap: 1.5rem;
+  border-top: 2px solid var(--primary);
+  padding: 1.5rem;
+}
+
+.ficha-rodape h3 {
+  font-family: var(--fonte-pixel);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+/* Linha do tempo dos marcos históricos. */
+.linha-tempo {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border-left: 2px solid var(--muted);
+  padding-left: 1rem;
+}
+
+.linha-tempo li {
+  position: relative;
+  font-size: 0.875rem;
+  line-height: 1.375;
+}
+
+.linha-tempo li::before {
+  content: "";
+  position: absolute;
+  left: -1.4rem;
+  top: 0.25rem;
+  width: 0.625rem;
+  height: 0.625rem;
+  background: var(--primary);
+}
+
+.linha-tempo strong {
+  margin-right: 0.5rem;
+  color: var(--primary);
+}
+
+.legado {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.625;
+  color: var(--muted-foreground);
+}
+
+/* Galeria dos cenários. */
+.galeria {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.galeria figure {
+  border: 2px solid var(--primary);
+  background: var(--card);
+}
+
+.galeria a {
+  display: block;
+  overflow: hidden;
+}
+
+.galeria figcaption {
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.galeria figcaption strong {
+  color: var(--primary);
+}
+
+.galeria figcaption span {
+  color: var(--muted-foreground);
+}
+
+.memorial-fim {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  border-top: 2px solid var(--primary);
+  padding-top: 2.5rem;
+  text-align: center;
+}
+
+.memorial-fim > p {
+  font-family: var(--fonte-serif);
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+
+/* ===== MOLDURA DAS SALAS (JORNADA) ===== */
+
+.moldura {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--background);
+}
+
+/* Moldura vermelha nos últimos 5 minutos. */
+.moldura.em-alerta {
+  box-shadow: inset 0 0 0 4px var(--destructive);
+}
+
+/* Barra superior com as salas, chaves e cronômetro. */
+.barra-salas {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 2.75rem;
+  border-bottom: 2px solid var(--primary);
+  background: var(--card);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.em-alerta .barra-salas {
+  border-color: var(--destructive);
+}
+
+.barra-link {
+  padding: 0.25rem 0.5rem;
+}
+
+.barra-link:hover {
+  background: var(--muted);
+}
+
+.barra-link.forte {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.barra-link.ativo {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-weight: 700;
+}
+
+.chave-barra {
+  margin-left: 0.25rem;
+}
+
+.chave-barra:empty {
+  display: none;
+}
+
+.separador {
+  color: var(--muted-foreground);
+}
+
+.barra-direita {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.link-jornada {
+  display: none;
+  border: 1px solid var(--primary);
+  padding: 0.25rem 0.5rem;
+  color: var(--primary);
+}
+
+.link-jornada:hover,
+.botao-jornada:hover {
+  background: var(--muted);
+}
+
+/* Cronômetro global de 30 minutos. */
+.cronometro {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  border: 2px solid var(--primary);
+  padding: 0.125rem 0.5rem;
+  font-family: var(--fonte-pixel);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--primary);
+}
+
+.cronometro.esgotado {
+  border-color: var(--destructive);
+  color: var(--destructive);
+}
+
+.cronometro.alerta {
+  border-color: var(--destructive);
+  background: var(--destructive);
+  color: var(--destructive-foreground);
+  animation: piscar 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.botao-jornada {
+  border: 1px solid var(--primary);
+  padding: 0.25rem 0.5rem;
+  font-family: var(--fonte-mono);
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* Faixa de aviso dos últimos 5 minutos. */
+.aviso-alerta {
+  flex-shrink: 0;
+  background: var(--destructive);
+  color: var(--destructive-foreground);
+  padding: 0.25rem 0.75rem;
+  text-align: center;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+}
+
+.area-jogo {
+  display: flex;
+  flex: 1;
+}
+
+.area-jogo iframe {
+  width: 100%;
+  flex: 1;
+  border: 0;
+}
+
+/* Trechos que aparecem só em telas maiores. */
+.so-tablet,
+.so-desktop {
+  display: none;
+}
+
+/* ===== JANELAS DA JORNADA (TRANSIÇÃO, DERROTA E VITÓRIA) ===== */
+
+.fundo-janela {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: color-mix(in oklch, var(--background) 85%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+.janela {
+  width: 100%;
+  max-width: 32rem;
+  max-height: 92vh;
+  overflow-y: auto;
+  border: 4px solid var(--primary);
+  background: var(--card);
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  box-shadow: 8px 8px 0 var(--muted);
+}
+
+.janela.alerta {
+  border-color: var(--destructive);
+}
+
+.janela h2 {
+  margin-top: 0.5rem;
+  font-family: var(--fonte-serif);
+  font-size: 1.5rem;
+  line-height: 1.25;
+  font-weight: 400;
+}
+
+.janela-sobretitulo {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--primary);
+}
+
+.janela.alerta .janela-sobretitulo {
+  color: var(--destructive);
+}
+
+.janela-suave {
+  margin-top: 0.25rem;
+  color: var(--muted-foreground);
+}
+
+.janela-suave.pequena {
+  margin-top: 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.janela-suave.texto {
+  margin: 1rem 0;
+  line-height: 1.625;
+}
+
+.janela-chaves {
+  margin: 1.25rem 0;
+}
+
+/* Símbolo grande da chave conquistada. */
+.chave-conquistada {
+  display: grid;
+  place-items: center;
+  width: 6rem;
+  height: 6rem;
+  margin: 1.25rem auto;
+  border: 4px solid var(--primary);
+  background: var(--muted);
+  color: var(--primary);
+  font-size: 3rem;
+  line-height: 1;
+  animation: brilho 1.6s ease-in-out infinite;
+}
+
+.icone-derrota,
+.icone-vitoria {
+  margin-bottom: 1rem;
+  font-family: var(--fonte-pixel);
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.icone-derrota {
+  color: var(--destructive);
+}
+
+.icone-vitoria {
+  margin-bottom: 0.75rem;
+  color: var(--primary);
+  animation: brilho 1.6s ease-in-out infinite;
+}
+
+.tempo-destaque {
+  font-family: var(--fonte-pixel);
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--primary);
+}
+
+.janela-fechar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.janela-fechar button {
+  margin: -0.5rem -0.5rem 0 0;
+  padding: 0 0.5rem;
+  font-size: 1.125rem;
+  color: var(--muted-foreground);
+}
+
+.janela-fechar button:hover {
+  color: var(--foreground);
+}
+
+.janela-botoes {
+  margin-top: 1.5rem;
+  display: grid;
+  gap: 0.75rem;
+}
+
+/* Botão principal das janelas. */
+.botao-janela {
+  width: 100%;
+  margin-top: 1.5rem;
+  border: 2px solid var(--primary);
+  background: var(--primary);
+  color: var(--primary-foreground);
+  padding: 1rem 1.25rem;
+  font-family: var(--fonte-pixel);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.025em;
+  box-shadow: 4px 4px 0 var(--secondary);
+  transition: transform 0.15s;
+}
+
+.janela-botoes .botao-janela {
+  margin-top: 0;
+}
+
+.botao-janela:hover {
+  transform: translateY(-2px);
+}
+
+.botao-janela:focus-visible {
+  outline: 4px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.botao-janela-secundario {
+  width: 100%;
+  border: 2px solid var(--primary);
+  padding: 0.75rem 1.25rem;
+  font-family: var(--fonte-pixel);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.025em;
+  color: var(--primary);
+}
+
+.botao-janela-secundario:hover {
+  background: var(--muted);
+}
+
+/* ===== PÁGINA NÃO ENCONTRADA ===== */
+
+.nao-encontrada {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+.nao-encontrada h1 {
+  font-family: var(--fonte-serif);
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.nao-encontrada p {
+  margin: 0.5rem 0 1.5rem;
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+
+/* ===== TELAS MAIORES ===== */
+
+/* Celular deitado e tablets pequenos (a partir de 640px). */
+@media (min-width: 40rem) {
+  .abertura-conteudo {
+    padding: 5rem 1rem;
+  }
+
+  .abertura-logo {
+    width: 15rem;
+  }
+
+  .titulo-principal {
+    font-size: 3.75rem;
+  }
+
+  .abertura-texto {
+    font-size: 1rem;
+  }
+
+  .grade-salas,
+  .galeria {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .titulo-memorial {
+    font-size: 3rem;
+    line-height: 1;
+  }
+
+  .ficha-texto,
+  .ficha-rodape {
+    padding: 2rem;
+  }
+
+  .janela {
+    padding: 2rem;
+  }
+
+  .barra-salas {
+    padding: 0.25rem 0.75rem;
+  }
+
+  .so-tablet {
+    display: inline;
+  }
+
+  div.so-tablet {
+    display: block;
+  }
+}
+
+/* Tablets (a partir de 768px). */
+@media (min-width: 48rem) {
+  .so-desktop {
+    display: inline;
+  }
+
+  /* Logo ao lado do texto da abertura. */
+  .abertura-conteudo {
+    grid-template-columns: 1fr auto;
+  }
+
+  .abertura-logo {
+    width: 18rem;
+  }
+
+  .ficha-topo {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  }
+
+  .ficha-topo.invertida > :first-child {
+    order: 2;
+  }
+
+  .ficha-retrato {
+    border-bottom: 0;
+  }
+
+  .ficha-rodape {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Computadores (a partir de 1024px). */
+@media (min-width: 64rem) {
+  .grade-salas,
+  .galeria {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .link-jornada {
+    display: inline;
+  }
+}

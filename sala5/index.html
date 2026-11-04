@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>O Observatório de Caroline Herschel — Escape Room</title>
+    <meta name="description" content="Um escape room de matemática em pixel art sobre cometas, estrelas e a história da astrônoma Caroline Herschel."/>
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+  </head>
+
+  <body>
+    <main class="game-shell">
+
+      <header class="game-bar">
+        <div class="game-title">
+          <span class="chapter">FASE 05</span>
+          <div>
+            <h1>O observatório de Caroline Herschel</h1>
+            <p>Slough / Bath, Inglaterra, 1788</p>
+          </div>
+        </div>
+        <div class="progress-panel"><strong id="progress">0/4</strong></div>
+        <div class="game-actions">
+          <button class="icon-btn" id="btn-help" title="Como jogar" aria-label="Como jogar"> ? </button>
+          <button class="icon-btn" id="btn-reset" title="Reiniciar" aria-label="Reiniciar jogo"> ⟲ </button>
+        </div>
+      </header>
+
+      <section class="room-stage" aria-label="Observatório de Caroline Herschel">
+        <img class="room-image" src="cenario.png" width="1792" height="1024" alt="Observatório do século XVIII à luz de velas, com relógio de pêndulo, carta celeste Hemisphaerium Coeleste na parede, mesa com o diário de observações Anno 1788, telescópio refletor de latão diante da janela onde passa um cometa e esfera armilar sobre um console de latão com quatro mostradores"/>
+        <div id="hotspots"></div>
+        <div class="scanlines" aria-hidden="true"></div>
+      </section>
+
+      <footer class="game-footer">
+        <p>
+          <span class="deco" aria-hidden="true">✦</span> Explore o observatório e clique nos instrumentos. Cada resposta revela um símbolo.</p>
+        <span><span aria-hidden="true">⏱</span> <span id="timer">00:00</span></span>
+      </footer>
+    </main>
+
+    <div class="overlay" id="intro-overlay">
+      <div class="pixel-dialog" role="dialog" aria-modal="true">
+        <div>
+          <span class="dialog-kicker">ARQUIVO Nº 05</span>
+          <h2>As noites de Caroline Herschel</h2>
+        </div>
+        <p class="dialog-desc">Um cometa cruza o céu da Inglaterra, mas o registro da descoberta ficou trancado dentro da esfera armilar. Resolva quatro enigmas, guarde os símbolos e destrave o console de latão.</p>
+        <div class="mission-note">
+          <span>MISSÃO</span>
+          <p>Encontre as 4 pistas e gire os mostradores I, II, III e IV. O cronômetro começa agora, observe cada instrumento do observatório com atenção.</p>
+        </div>
+        <button class="pixel-primary" id="btn-start">COMEÇAR INVESTIGAÇÃO</button>
+      </div>
+    </div>
+
+    <div class="overlay" id="puzzle-overlay">
+      <div class="pixel-dialog" id="puzzle-dialog" role="dialog" aria-modal="true"></div>
+    </div>
+
+    <div class="overlay" id="victory-overlay">
+      <div class="pixel-dialog victory-dialog" role="dialog" aria-modal="true">
+        <button class="dialog-corner-close" id="btn-close-victory" aria-label="Fechar"> ✕ </button>
+        <div class="victory-star">☄</div>
+        <span class="dialog-kicker">SALA CONCLUÍDA</span>
+        <h2>A esfera armilar girou!</h2>
+        <p class="dialog-desc">Caroline Herschel (1750–1848) foi a primeira mulher a descobrir um cometa, em 1786, e encontrou oito ao todo. Em 1787 tornou-se a primeira mulher paga para trabalhar como cientista, com um salário do rei George III. Catalogou centenas de nebulosas e, em 1828, recebeu a Medalha de Ouro da Royal Astronomical Society.</p>
+        <p class="victory-time">TEMPO: <span id="victory-time">00:00</span></p>
+        <blockquote>“Aqui na Terra, o olhar da glorificada voltava-se para o céu estrelado.”<br/><small>— epitáfio que Caroline escreveu para si</small></blockquote>
+        <button class="pixel-primary" id="btn-again">JOGAR NOVAMENTE</button>
+      </div>
+    </div>
+
+  </body>
+</html>

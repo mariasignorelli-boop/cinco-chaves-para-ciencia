@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>O Escritório de Emmy Noether — Escape Room</title>
+    <meta name="description" content="Um escape room de matemática em pixel art sobre simetria e a história de Emmy Noether."/>
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+  </head>
+
+  <body>
+    <main class="game-shell">
+
+      <header class="game-bar">
+        <div class="game-title">
+          <span class="chapter">FASE 01</span>
+          <div>
+            <h1>O escritório de Emmy Noether</h1>
+            <p>Göttingen, 1925</p>
+          </div>
+        </div>
+        <div class="progress-panel"><strong id="progress">0/4</strong></div>
+        <div class="game-actions">
+          <button class="icon-btn" id="btn-help" title="Como jogar" aria-label="Como jogar"> ? </button>
+          <button class="icon-btn" id="btn-reset" title="Reiniciar" aria-label="Reiniciar jogo"> ⟲ </button>
+        </div>
+      </header>
+
+      <section class="room-stage" aria-label="Escritório de Emmy Noether">
+        <img class="room-image" src="cenario.png" width="1536" height="1024" alt="Escritório antigo com quadro-negro, relógio, retrato, estante, escrivaninha e cofre"/>
+        <div id="hotspots"></div>
+        <div class="scanlines" aria-hidden="true"></div>
+      </section>
+
+      <footer class="game-footer">
+        <p>
+          <span class="deco" aria-hidden="true">✦</span> Explore a sala e clique nos objetos. Cada resposta revela um símbolo.</p>
+        <span><span aria-hidden="true">⏱</span> <span id="timer">00:00</span></span>
+      </footer>
+    </main>
+
+    <div class="overlay" id="intro-overlay">
+      <div class="pixel-dialog" role="dialog" aria-modal="true">
+        <div>
+          <span class="dialog-kicker">ARQUIVO Nº 02</span>
+          <h2>O segredo de Emmy Noether</h2>
+        </div>
+        <p class="dialog-desc">Uma anotação importante foi trancada no cofre. Resolva quatro enigmas, guarde os símbolos e abra a porta.</p>
+        <div class="mission-note">
+          <span>MISSÃO</span>
+          <p>Encontre as 4 pistas e destrave o cofre. O cronômetro começa agora, observe cada objeto da sala com atenção.</p>
+        </div>
+        <button class="pixel-primary" id="btn-start">COMEÇAR INVESTIGAÇÃO</button>
+      </div>
+    </div>
+
+    <div class="overlay" id="puzzle-overlay">
+      <div class="pixel-dialog" id="puzzle-dialog" role="dialog" aria-modal="true"></div>
+    </div>
+
+    <div class="overlay" id="victory-overlay">
+      <div class="pixel-dialog victory-dialog" role="dialog" aria-modal="true">
+        <button class="dialog-corner-close" id="btn-close-victory" aria-label="Fechar"> ✕ </button>
+        <div class="victory-star">★</div>
+        <span class="dialog-kicker">SALA CONCLUÍDA</span>
+        <h2>A simetria revelou o caminho!</h2>
+        <p class="dialog-desc"> Emmy Noether mostrou que as simetrias da natureza estão ligadas às leis de conservação — uma ideia que transformou a matemática e a física.</p>
+        <p class="victory-time">TEMPO: <span id="victory-time">00:00</span></p>
+        <blockquote>“Minhas ideias são meus métodos.”</blockquote>
+        <button class="pixel-primary" id="btn-again">JOGAR NOVAMENTE</button>
+      </div>
+    </div>
+    
+  </body>
+</html>

@@ -1,0 +1,672 @@
+/* Define as cores reutilizadas no projeto. */
+:root {
+  --background: oklch(0.14 0.022 190);
+  --foreground: oklch(0.93 0.025 83);
+  --primary: oklch(0.76 0.15 78);
+  --primary-foreground: oklch(0.15 0.025 188);
+  --secondary: oklch(0.34 0.074 18);
+  --muted: oklch(0.25 0.035 186);
+  --muted-foreground: oklch(0.73 0.03 83);
+  --accent: oklch(0.7 0.13 172);
+  --border: oklch(0.55 0.09 67);
+}
+
+/* Ajuste global do modelo de caixa. */
+* {
+  box-sizing: border-box;
+  border-color: var(--border);
+}
+
+/* Configuração geral da página: fundo, texto e fonte. */
+html, body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: "Courier New", monospace;
+}
+
+button, input {
+  font: inherit;
+  letter-spacing: 0;
+}
+
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--foreground);
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.icon-btn:hover {
+  border-color: var(--border);
+  background: var(--muted);
+}
+
+/* Estrutura geral: cabeçalho, sala e rodapé. */
+.game-shell {
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
+  background: var(--background);
+}
+
+/* Barra superior com título, progresso e ações. */
+.game-bar {
+  min-height: 76px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 24px;
+  border-bottom: 4px solid var(--primary);
+  background: oklch(0.13 0.029 190);
+  box-shadow: 0 5px 0 oklch(0.07 0.018 190);
+  position: relative;
+  z-index: 10;
+}
+
+.game-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.chapter {
+  padding: 8px 10px;
+  background: var(--secondary);
+  color: var(--foreground);
+  border: 2px solid oklch(0.73 0.11 42);
+  box-shadow: 3px 3px 0 oklch(0.07 0.018 190);
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.game-title h1 {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: clamp(17px, 2vw, 25px);
+  color: oklch(0.94 0.05 83);
+}
+
+.game-title p {
+  margin: 3px 0 0;
+  color: var(--muted-foreground);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.progress-panel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--muted-foreground);
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.progress-panel strong {
+  color: var(--foreground);
+  font-size: 13px;
+}
+
+.game-actions {
+  justify-self: end;
+  display: flex;
+  gap: 4px;
+}
+
+/* Área que contém a imagem da sala e dos hotspots. */
+.room-stage {
+  position: relative;
+  width: min(100%, calc((100svh - 122px) * 1.875));
+  aspect-ratio: 15 / 8;
+  min-height: 0;
+  align-self: center;
+  justify-self: center;
+  background: oklch(0.1 0.02 190);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Imagem principal da sala. */
+.room-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  image-rendering: pixelated;
+  display: block;
+}
+
+/* Efeito de linhas para aparência antiga. */
+.scanlines {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  opacity: 0.12;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0 3px,
+    oklch(0.05 0.02 190) 3px 4px
+  );
+  mix-blend-mode: multiply;
+}
+
+/* Áreas invisíveis que tornam objetos clicáveis. */
+.object-hotspot {
+  position: absolute;
+  z-index: 5;
+  height: auto;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  color: transparent;
+  background: transparent;
+  box-shadow: none;
+  cursor: default;
+}
+
+.object-hotspot:hover, .object-hotspot:focus, .object-hotspot:focus-visible {
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+}
+
+/* Posição do hotspot da escrivaninha com o caderno. */
+.hotspot-desk {
+  left: 3%;
+  top: 46%;
+  width: 27%;
+  height: 40%;
+}
+
+/* Posição do hotspot da tabela periódica. */
+.hotspot-table {
+  left: 19%;
+  top: 7%;
+  width: 17%;
+  height: 32%;
+}
+
+/* Posição do hotspot dos frascos e do contador. */
+.hotspot-geiger {
+  left: 34%;
+  top: 48%;
+  width: 30%;
+  height: 24%;
+}
+
+/* Posição do hotspot da bancada de instrumentos. */
+.hotspot-apparatus {
+  left: 76%;
+  top: 22%;
+  width: 23%;
+  height: 48%;
+}
+
+/* Posição do hotspot do cofre. */
+.hotspot-safe {
+  left: 62.5%;
+  top: 4%;
+  width: 12.5%;
+  height: 66%;
+}
+
+/* Rodapé da aplicação. */
+.game-footer {
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  padding: 8px 20px;
+  background: oklch(0.12 0.028 190);
+  border-top: 3px solid oklch(0.35 0.07 20);
+  color: var(--muted-foreground);
+  font-size: 11px;
+  position: relative;
+  z-index: 10;
+}
+
+.game-footer p, .game-footer span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+}
+
+.game-footer > span {
+  color: var(--primary);
+  font-weight: 900;
+}
+
+.deco {
+  color: var(--primary);
+}
+
+/* Camada escura usada atrás dos modais. */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: none;
+  place-items: center;
+  background: oklch(0.05 0.015 190 / 0.8);
+  padding: 16px;
+}
+
+/* Torna o modal visível quando 'open' é adicionada. */
+.overlay.open {
+  display: grid;
+}
+
+/* Janela/modal dos desafios. */
+.pixel-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  max-height: 90svh;
+  overflow: auto;
+  display: grid;
+  gap: 14px;
+  border: 3px solid var(--primary);
+  border-radius: 0;
+  background: oklch(0.17 0.032 185);
+  color: var(--foreground);
+  box-shadow:
+    9px 9px 0 oklch(0.06 0.018 190),
+    inset 0 0 0 2px oklch(0.38 0.065 65);
+  font-family: "Courier New", monospace;
+  padding: 30px;
+}
+
+.dialog-kicker {
+  display: block;
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.pixel-dialog h2 {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: clamp(24px, 4vw, 34px);
+  line-height: 1.05;
+  color: oklch(0.95 0.04 83);
+}
+
+.pixel-dialog p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.dialog-desc {
+  color: var(--muted-foreground);
+}
+
+.mission-note {
+  padding: 14px;
+  border-left: 5px solid var(--accent);
+  background: oklch(0.12 0.026 187);
+}
+
+.mission-note span {
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.mission-note p {
+  margin: 5px 0 0;
+  font-size: 13px;
+}
+
+/* Botão principal de ação. */
+.pixel-primary {
+  min-height: 43px;
+  padding: 0 16px;
+  border: 2px solid oklch(0.97 0.02 83);
+  border-radius: 0;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  box-shadow: 4px 4px 0 oklch(0.08 0.02 190);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.pixel-primary:hover {
+  background: oklch(0.82 0.15 78);
+  transform: translate(1px, 1px);
+  box-shadow: 3px 3px 0 oklch(0.08 0.02 190);
+}
+
+.pixel-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Grade das alternativas de múltipla escolha. */
+.answer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 9px;
+}
+
+.answer-grid button {
+  min-height: 64px;
+  height: auto;
+  white-space: normal;
+  border: 2px solid var(--border);
+  border-radius: 0;
+  background: oklch(0.14 0.027 187);
+  color: var(--foreground);
+  box-shadow: 3px 3px 0 oklch(0.07 0.018 190);
+  cursor: pointer;
+  padding: 8px;
+}
+
+.answer-grid button:hover {
+  border-color: var(--primary);
+  background: oklch(0.25 0.04 184);
+}
+
+/* Formulário dos desafios com resposta digitada. */
+.word-form {
+  display: grid;
+  gap: 9px;
+}
+
+.word-form label {
+  color: var(--muted-foreground);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.word-form input {
+  height: 48px;
+  border: 2px solid var(--border);
+  border-radius: 0;
+  background: oklch(0.11 0.02 190);
+  color: var(--foreground);
+  padding: 0 14px;
+  text-transform: uppercase;
+  outline: none;
+}
+
+.word-form input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px oklch(0.75 0.15 78 / 0.2);
+}
+
+/* Área de feedback e botão de dica. */
+.feedback-row {
+  min-height: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.ghost-btn {
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  color: var(--primary);
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.wrong-answer {
+  margin: 0;
+  color: oklch(0.76 0.15 25);
+  font-size: 12px;
+}
+
+/* Caixa que apresenta a dica. */
+.hint-box {
+  padding: 10px 12px;
+  border: 1px dashed var(--primary);
+  background: oklch(0.23 0.04 75);
+  color: oklch(0.93 0.04 83);
+  font-size: 12px;
+}
+
+/* Painel exibido após resolver um desafio. */
+.success-panel {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px;
+  border: 2px solid var(--accent);
+  background: oklch(0.2 0.045 173);
+}
+
+.success-panel p {
+  margin: 4px 0 0;
+  font-size: 12px;
+}
+
+.reward-symbol {
+  width: 62px;
+  height: 62px;
+  display: grid;
+  place-items: center;
+  border: 3px solid var(--primary);
+  background: oklch(0.14 0.025 187);
+  color: var(--primary);
+  font-size: 31px;
+  flex: none;
+}
+
+/* Mensagem mostrada quando o cofre está bloqueado. */
+.locked-message {
+  text-align: center;
+  padding: 20px;
+  background: oklch(0.12 0.02 190);
+  border: 1px solid var(--border);
+}
+
+.pixel-lock {
+  font-size: 45px;
+  color: var(--primary);
+}
+
+.locked-message p {
+  margin: 8px 0 0;
+  font-weight: bold;
+}
+
+.locked-message small {
+  color: var(--muted-foreground);
+}
+
+/* Teclado usado para inserir a sequência do cofre. */
+.safe-keypad {
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+}
+
+/* Visor da sequência digitada. */
+.safe-display {
+  display: flex;
+  gap: 10px;
+}
+
+.safe-display span {
+  display: grid;
+  width: 44px;
+  height: 48px;
+  place-items: center;
+  border: 2px solid var(--primary);
+  background: oklch(0.1 0.025 190 / 0.9);
+  color: var(--primary);
+  font-size: 22px;
+}
+
+/* Grade de símbolos do cofre. */
+.symbol-pad {
+  display: grid;
+  grid-template-columns: repeat(4, 56px);
+  gap: 10px;
+}
+
+.symbol-pad button {
+  height: 56px;
+  font-size: 22px;
+  border: 2px solid var(--border);
+  border-radius: 0;
+  background: oklch(0.14 0.027 187);
+  color: var(--foreground);
+  box-shadow: 3px 3px 0 oklch(0.07 0.018 190);
+  cursor: pointer;
+}
+
+.symbol-pad button:hover {
+  border-color: var(--primary);
+  background: oklch(0.25 0.04 184);
+}
+
+/* Controles de apagar e destravar. */
+.safe-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.erase-btn {
+  min-height: 43px;
+  padding: 0 14px;
+  border: 0;
+  background: transparent;
+  color: var(--primary);
+  cursor: pointer;
+  font-weight: 900;
+}
+
+/* Organização da janela de vitória. */
+.victory-dialog {
+  text-align: center;
+  justify-items: center;
+}
+
+.victory-star {
+  width: 74px;
+  height: 74px;
+  display: grid;
+  place-items: center;
+  border: 4px double var(--primary);
+  color: var(--primary);
+  font-size: 40px;
+}
+
+.victory-time {
+  color: var(--primary);
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+.victory-dialog blockquote {
+  margin: 4px 0 10px;
+  color: var(--accent);
+  font-family: Georgia, serif;
+  font-style: italic;
+}
+
+.dialog-corner-close {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  border: 0;
+  background: transparent;
+  color: var(--foreground);
+  cursor: pointer;
+  font-size: 17px;
+}
+
+/* Ajustes responsivos para telas estreitas. */
+@media (max-width: 760px) {
+  .game-shell {
+    overflow: auto;
+  }
+  .game-bar {
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    padding: 9px 12px;
+  }
+  .chapter {
+    display: none;
+  }
+  .game-title h1 {
+    font-size: 16px;
+  }
+  .progress-panel {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    justify-content: center;
+  }
+  .game-actions {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .room-stage {
+    width: 100%;
+    align-self: center;
+  }
+  .game-footer {
+    padding: 7px 10px;
+    font-size: 10px;
+  }
+  .game-footer p {
+    max-width: 280px;
+  }
+  .pixel-dialog {
+    width: calc(100% - 24px);
+    padding: 24px 18px;
+  }
+  .answer-grid {
+    grid-template-columns: 1fr;
+  }
+  .answer-grid button {
+    min-height: 46px;
+  }
+  .answer-grid.shelf {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* Estante de frascos: 3 em cima, 2 centralizados embaixo. */
+.answer-grid.shelf {
+  grid-template-columns: repeat(6, 1fr);
+}
+.answer-grid.shelf button {
+  grid-column: span 2;
+}
+.answer-grid.shelf button:nth-child(4) {
+  grid-column: 2 / span 2;
+}
+
+/* Reduz movimento quando o usuário solicita essa preferência. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

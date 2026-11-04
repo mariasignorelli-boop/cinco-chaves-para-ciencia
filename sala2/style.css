@@ -1,0 +1,1037 @@
+:root {
+  --material-1: oklch(0.25853 0.03014 202.606);
+  --material-2: oklch(0.30976 0.03771 200.842);
+  --material-3: oklch(0.20839 0.02307 205.424);
+  --material-4: oklch(0.92208 0.04358 86.589);
+  --material-5: oklch(0.74266 0.04512 79.675);
+  --material-6: oklch(0.76944 0.13064 78.439);
+  --material-7: oklch(0.51527 0.1087 39.375);
+  --material-8: oklch(0.3658 0.10011 2.444);
+  --material-9: oklch(0.6756 0.09518 184.51);
+  --material-10: oklch(0.66593 0.15004 28.62);
+  --material-11: oklch(0.16773 0.01725 209.687);
+  --material-12: oklch(0.15453 0.01504 203.854);
+  --material-13: oklch(0.19148 0.02231 205.915);
+  --material-14: oklch(0.16088 0.02118 206.807);
+  --material-15: oklch(0.14545 0.01458 204.207);
+  --material-16: oklch(0.15061 0.01382 204.713);
+  --material-17: oklch(0.55438 0.06773 66.454);
+  --material-18: oklch(0.31134 0.03579 137.177);
+  --material-19: oklch(0.33872 0.04431 188.488);
+  --material-20: oklch(0.27765 0.02652 68.827);
+  --material-21: oklch(0.41038 0.04428 74.055);
+  --material-22: oklch(0.19722 0.01258 55.546);
+  --material-23: oklch(0.31291 0.02967 74.956);
+  --material-24: oklch(0.23282 0.02193 72.629);
+  --material-25: oklch(0.90055 0.10642 84.685);
+  --material-26: oklch(0.95617 0.05908 91.449);
+  --material-27: oklch(0.92263 0.09639 89.369);
+  --material-28: oklch(1 0 89.876);
+  --material-29: oklch(0.75495 0.01 222.092);
+  --material-30: oklch(0.50708 0.01208 219.708);
+  --material-31: oklch(0.20522 0.00645 214.448);
+  --material-32: oklch(0.3885 0.00982 216.735);
+  --material-33: oklch(0.88126 0.0071 219.567);
+  --material-34: oklch(0.70918 0.01118 219.631);
+  --material-35: oklch(0.30417 0.00911 219.773);
+  --material-36: oklch(0.17476 0.00523 219.772);
+  --material-37: oklch(0.96441 0.00448 214.328);
+  --material-38: oklch(0.54199 0.0119 219.689);
+  --material-39: oklch(0.42987 0.1455 16.201);
+  --material-40: oklch(0.55735 0.16854 15.459);
+  --material-41: oklch(0.34573 0.12038 16.802);
+  --material-42: oklch(0.76524 0.14204 12.327);
+  --material-43: oklch(0.87373 0.07827 229.226);
+  --material-44: oklch(0.7136 0.15791 247.133);
+  --material-45: oklch(0.58395 0.22766 261.082);
+  --material-46: oklch(0.932 0.03988 231.799);
+}
+/* Paleta de cores da sala: verde-petróleo, vinho, cobre, dourado e âmbar. */
+:root {
+  --background: var(--material-1);
+  --surface: var(--material-2);
+  --surface-deep: var(--material-3);
+  --foreground: var(--material-4);
+  --muted: var(--material-5);
+  --gold: var(--material-6);
+  --copper: var(--material-7);
+  --wine: var(--material-8);
+  --teal: var(--material-9);
+  --feedback-ready: rgb(57, 238, 57);
+  --danger: var(--material-10);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: PixelFallback, monospace;
+}
+
+button,
+input {
+  font: inherit;
+  letter-spacing: 0;
+}
+
+button {
+  color: inherit;
+}
+
+.game-shell {
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  overflow: hidden;
+  background: var(--background);
+}
+
+.game-bar {
+  min-height: 76px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 24px;
+  border-bottom: 4px solid var(--gold);
+  background: var(--surface-deep);
+  box-shadow: 0 5px 0 var(--material-11);
+  position: relative;
+  z-index: 10;
+}
+
+.game-title {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.chapter {
+  padding: 8px 10px;
+  background: var(--wine);
+  border: 2px solid var(--copper);
+  box-shadow: 3px 3px 0 var(--material-12);
+  font-size: 12px;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+h1 {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-size: 25px;
+  color: var(--foreground);
+}
+
+.game-title p {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.progress {
+  font-size: 14px;
+  color: var(--gold);
+}
+
+.actions {
+  justify-self: end;
+  display: flex;
+  gap: 6px;
+}
+
+.icon-button {
+  width: 40px;
+  height: 40px;
+  border: 1px solid transparent;
+  background: transparent;
+  font-size: 21px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.icon-button:hover,
+.icon-button:focus-visible {
+  border-color: var(--gold);
+  background: var(--surface);
+  outline: none;
+}
+
+.room-stage {
+  position: relative;
+  width: min(100%, calc((100svh - 122px) * 1.5));
+  aspect-ratio: 3 / 2;
+  min-height: 0;
+  align-self: center;
+  justify-self: center;
+  overflow: hidden;
+  background: var(--material-13);
+  isolation: isolate;
+}
+
+.room-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  image-rendering: pixelated;
+  display: block;
+}
+
+/* Listras finas sobre o cenário, imitando tela de monitor antigo. */
+.scanlines {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  opacity: 0.11;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0 3px,
+    var(--material-14) 3px 4px
+  );
+  mix-blend-mode: multiply;
+}
+
+/* Pontos clicáveis da sala: totalmente invisíveis */
+.hotspot {
+  position: absolute;
+  z-index: 5;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  cursor: default;
+}
+
+.hotspot:hover,
+.hotspot:focus,
+.hotspot:focus-visible {
+  background: transparent;
+  box-shadow: none;
+  outline: none;
+}
+
+.hotspot.books {
+  left: 3%;
+  top: 12%;
+  width: 13.5%;
+  height: 55%;
+}
+
+.hotspot.drawers {
+  left: 27.5%;
+  top: 60.7%;
+  width: 7.5%;
+  height: 15%;
+}
+
+.hotspot.note {
+  left: 28.8%;
+  top: 53.8%;
+  width: 5%;
+  height: 5%;
+}
+
+.hotspot.portrait {
+  left: 44%;
+  top: 9%;
+  width: 17%;
+  height: 32%;
+}
+
+.hotspot.computer {
+  left: 51%;
+  top: 47.5%;
+  width: 8%;
+  height: 9%;
+}
+
+.hotspot.cards {
+  left: 65%;
+  top: 24%;
+  width: 7%;
+  height: 23%;
+}
+
+.hotspot.engine {
+  left: 74.8%;
+  top: 37%;
+  width: 25%;
+  height: 52%;
+}
+
+.game-footer {
+  min-height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  padding: 8px 20px;
+  background: var(--surface-deep);
+  border-top: 3px solid var(--wine);
+  color: var(--muted);
+  font-size: 11px;
+  position: relative;
+  z-index: 10;
+}
+
+.game-footer p,
+.game-footer span {
+  margin: 0;
+}
+
+.game-footer span {
+  color: var(--gold);
+  font-weight: 900;
+}
+
+/* ===== JANELAS (introdução, enigmas e vitória) =====
+ Fundo escuro por trás da janela; .open faz a janela aparecer. */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: none;
+  place-items: center;
+  padding: 18px;
+  background: oklch(0.14545 0.01458 204.207 / 0.78);
+}
+
+.modal.open {
+  display: grid;
+}
+
+.dialog {
+  position: relative;
+  width: min(100%, 560px);
+  max-height: calc(100svh - 36px);
+  overflow-y: auto;
+  border: 3px solid var(--gold);
+  background: var(--surface);
+  padding: 30px;
+  box-shadow:
+    9px 9px 0 var(--material-15),
+    inset 0 0 0 2px var(--copper);
+}
+
+.dialog h2 {
+  margin: 5px 0 12px;
+  font-family: Georgia, serif;
+  font-size: 35px;
+  line-height: 1.08;
+}
+
+.dialog p {
+  line-height: 1.55;
+}
+
+.kicker {
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.close {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  background: transparent;
+  font-size: 27px;
+  cursor: pointer;
+}
+
+.mission {
+  margin: 18px 0;
+  padding: 14px;
+  border-left: 5px solid var(--teal);
+  background: var(--surface-deep);
+}
+
+.mission strong {
+  color: var(--teal);
+  font-size: 10px;
+}
+
+.mission p {
+  margin: 5px 0 0;
+  font-size: 13px;
+}
+
+.primary {
+  min-height: 44px;
+  width: 100%;
+  border: 2px solid var(--foreground);
+  background: var(--gold);
+  color: var(--surface-deep);
+  box-shadow: 4px 4px 0 var(--material-16);
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.primary:hover,
+.primary:focus-visible {
+  filter: brightness(1.1);
+  transform: translate(1px, 1px);
+  outline: none;
+}
+
+/* ===== RESPOSTAS DOS ENIGMAS =====
+ Alternativas de múltipla escolha em grade de duas colunas. */
+.option-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+  margin: 16px 0;
+}
+
+.option {
+  min-height: 58px;
+  padding: 10px;
+  border: 2px solid var(--material-17);
+  background: var(--surface-deep);
+  cursor: pointer;
+}
+
+.option:hover,
+.option:focus-visible {
+  border-color: var(--gold);
+  outline: none;
+}
+
+/* Campo de resposta digitada (computador mecânico e bilhete). */
+.word-form {
+  display: grid;
+  gap: 9px;
+  margin: 16px 0;
+}
+
+.word-form label {
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.word-form input {
+  height: 48px;
+  border: 2px solid var(--material-17);
+  background: var(--surface-deep);
+  color: var(--foreground);
+  padding: 0 14px;
+  text-transform: uppercase;
+  outline: none;
+}
+
+.word-form input:focus {
+  border-color: var(--gold);
+}
+
+.feedback-row {
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.feedback-row p {
+  margin: 0;
+  color: var(--danger);
+  font-size: 12px;
+
+}
+
+.hint-button {
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  color: var(--gold);
+  cursor: pointer;
+}
+
+.hint {
+  margin: 8px 0 0;
+  padding: 11px;
+  border: 1px dashed var(--gold);
+  background: var(--material-18);
+  font-size: 12px;
+}
+
+/* Caixa de sucesso mostrada ao resolver um enigma (engrenagem liberada). */
+.success {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 18px;
+  padding: 17px;
+  border: 2px solid var(--teal);
+  background: var(--material-19);
+}
+
+.piece {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  border: 3px solid var(--gold);
+  background: var(--surface-deep);
+  color: var(--gold);
+  font-size: 28px;
+}
+
+.locked {
+  padding: 18px;
+  text-align: center;
+  background: var(--surface-deep);
+  border: 1px solid var(--material-17);
+}
+
+.order-list {
+  display: grid;
+  gap: 8px;
+  margin: 15px 0;
+}
+
+.order-row {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  align-items: center;
+  gap: 9px;
+}
+
+.order-number {
+  height: 34px;
+  display: grid;
+  place-items: center;
+  background: var(--wine);
+  color: var(--gold);
+  font-weight: 900;
+}
+
+.engine-panel {
+  display: grid;
+  gap: 18px;
+  justify-items: center;
+  margin-top: 16px;
+}
+
+.card-track {
+  width: min(100%, 410px);
+  height: 54px;
+  border: 2px solid var(--material-17);
+  background: repeating-linear-gradient(
+    90deg,
+    var(--surface-deep) 0 17px,
+    var(--material-20) 17px 20px
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+.card-track::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 24px;
+  width: calc(100% - 16px);
+  height: 5px;
+  background: var(--material-21);
+}
+
+.card-track.active::after {
+  background: var(--gold);
+  box-shadow: 0 0 12px var(--gold);
+}
+
+/* ===== ENGRENAGENS DO MECANISMO FINAL =====
+ Círculo com borda tracejada dourada que gira 90° a cada clique.
+ A variável --turn guarda o ângulo atual; 
+ o pontinho azul (span) marca a direção para onde a engrenagem está apontando. */
+.gear {
+  --turn: 0deg;
+  width: 62px;
+  height: 62px;
+  border: 7px dashed var(--gold);
+  border-radius: 50%;
+  background: var(--surface-deep);
+  transform: rotate(var(--turn));
+  transition: transform 0.18s steps(2);
+  cursor: pointer;
+  position: relative;
+}
+
+.gear-slot:nth-child(2) .gear,
+.gear-slot:nth-child(4) .gear {
+  width: 68px;
+  height: 68px;
+}
+
+.gear::before,
+.gear::after {
+  content: "";
+  position: absolute;
+  background: var(--copper);
+}
+
+.gear::before {
+  width: 8px;
+  height: 62%;
+  left: calc(50% - 4px);
+  top: 19%;
+}
+
+.gear::after {
+  height: 8px;
+  width: 62%;
+  top: calc(50% - 4px);
+  left: 19%;
+}
+
+.gear span {
+  position: absolute;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: var(--teal);
+  left: calc(50% - 6px);
+  top: 4px;
+  z-index: 2;
+}
+
+.gear b {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--foreground);
+  font-size: 13px;
+  pointer-events: none;
+}
+
+.machine {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 12px;
+  padding: 14px 10px 10px;
+  border: 2px solid var(--material-17);
+  background: var(--surface-deep);
+  box-shadow: inset 0 0 0 3px var(--material-22);
+}
+
+/* ===== LINHA DE ENERGIA =====
+ Faixa horizontal acima das engrenagens. 
+ Cada engrenagem tem um trecho (.energy-segment) que acende quando ela está na posição certa. */
+.energy-line {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+}
+
+/* O conector até a alavanca é o próprio primeiro trecho, esticado 12px para a esquerda (o espaço entre alavanca e engrenagens). 
+ Assim ele tem exatamente a mesma altura, borda e cor da linha. */
+.gear-slot:first-child .energy-segment {
+  width: calc(100% + 12px);
+  margin-left: -12px;
+}
+
+.gear-slot:first-child .energy-segment::after {
+  left: calc(50% + 4px);
+}
+
+.gear-slot {
+  width: 70px;
+  height: 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.gear-slot .gear {
+  margin-bottom: auto;
+}
+
+.energy-segment {
+  display: block;
+  width: 100%;
+  height: 12px;
+  background: var(--material-23);
+  border-block: 2px solid var(--material-21);
+  box-shadow: inset 0 2px 0 var(--material-24);
+  transition:
+    background 0.2s,
+    box-shadow 0.2s;
+  position: relative;
+}
+
+.energy-segment::after {
+  content: "";
+  position: absolute;
+  left: calc(50% - 2px);
+  top: 10px;
+  width: 4px;
+  height: 14px;
+  background: var(--material-21);
+}
+
+.energy-segment.active {
+  background: var(--gold);
+  border-color: var(--material-25);
+  box-shadow:
+    0 0 10px var(--gold),
+    inset 0 2px 0 var(--material-26);
+}
+
+.energy-segment.active::after {
+  background: var(--gold);
+}
+
+.energy-line.complete .energy-segment {
+  background: var(--material-27);
+  animation: energy-pulse 0.9s steps(3) infinite;
+}
+
+@keyframes energy-pulse {
+  50% {
+    box-shadow:
+      0 0 18px var(--gold),
+      0 0 4px var(--material-28);
+  }
+}
+
+/* ===== ALAVANCA =====
+ Alavanca desenhada em CSS puro (base de metal, haste prateada e manopla vermelha), à esquerda das engrenagens. 
+ Fica apagada até a linha de energia se completar; 
+ ao clicar, a classe .pulled faz o braço descer com animação. */
+.lever-assembly {
+  position: relative;
+  width: 120px;
+  height: 150px;
+  flex: 0 0 auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.lever-assembly:disabled {
+  cursor: default;
+}
+
+.lever-assembly:focus-visible {
+  outline: 2px dashed var(--gold);
+  outline-offset: 2px;
+}
+
+.lever-base {
+  position: absolute;
+  right: 6px;
+  bottom: 0;
+  width: 48px;
+  height: 44px;
+  background: linear-gradient(180deg, var(--material-29), var(--material-30));
+  border: 3px solid var(--material-31);
+  box-shadow:
+    inset -4px -4px 0 var(--material-32),
+    inset 3px 3px 0 var(--material-33);
+}
+
+.lever-base::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -26px;
+  width: 28px;
+  height: 26px;
+  transform: translateX(-50%);
+  border: 6px solid var(--material-34);
+  border-top: 0;
+  box-shadow:
+    -2px 0 0 var(--material-31),
+    2px 0 0 var(--material-31);
+}
+
+.lever-base::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  width: 10px;
+  height: 10px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: var(--material-35);
+  box-shadow: inset 2px 2px 0 var(--material-36);
+}
+
+.lever-arm {
+  position: absolute;
+  right: 25px;
+  bottom: 30px;
+  width: 10px;
+  height: 108px;
+  transform-origin: 50% 100%;
+  transform: rotate(-14deg);
+  transition: transform 0.6s cubic-bezier(0.55, -0.35, 0.5, 1.35);
+}
+
+.lever-shaft {
+  position: absolute;
+  left: 1px;
+  right: 1px;
+  top: 22px;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    var(--material-37),
+    var(--material-34) 60%,
+    var(--material-38)
+  );
+  border: 2px solid var(--material-31);
+}
+
+.lever-knob {
+  position: absolute;
+  left: 50%;
+  top: -8px;
+  width: 22px;
+  height: 38px;
+  transform: translateX(-50%);
+  border-radius: 46% 46% 38% 38%;
+  background: linear-gradient(
+    90deg,
+    var(--material-39),
+    var(--material-40) 35%,
+    var(--material-41)
+  );
+  border: 2px solid var(--material-31);
+  box-shadow: inset 4px 3px 0 oklch(0.8233 0.10071 11.799 / 0.35);
+  transition: filter 0.3s;
+}
+
+.lever-assembly:disabled .lever-knob {
+  filter: saturate(0.45) brightness(0.75);
+}
+
+.lever-assembly:not(:disabled):not(.pulled) .lever-knob {
+  animation: knob-ready 1s steps(5) infinite;
+}
+
+@keyframes knob-ready {
+  50% {
+    filter: brightness(1.35) drop-shadow(0 0 6px var(--material-42));
+  }
+}
+
+.lever-assembly.pulled .lever-arm {
+  transform: rotate(-104deg);
+}
+
+.victory-dialog {
+  text-align: center;
+}
+
+.victory-mark {
+  width: 76px;
+  height: 76px;
+  margin: 0 auto 13px;
+  display: grid;
+  place-items: center;
+  border: 4px double var(--gold);
+  color: var(--gold);
+  font-size: 42px;
+}
+
+.final-time {
+  display: block;
+  margin: 16px 0;
+  color: var(--gold);
+}
+
+blockquote {
+  color: var(--teal);
+  font-family: Georgia, serif;
+  font-style: italic;
+}
+
+/* ===== TELA DE VITÓRIA E AJUSTES PARA CELULAR ===== */
+@media (max-width: 700px) {
+  .game-shell {
+    overflow: auto;
+  }
+  .game-bar {
+    grid-template-columns: 1fr auto;
+    padding: 9px 12px;
+    gap: 8px;
+  }
+  .chapter {
+    display: none;
+  }
+  .progress {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    text-align: center;
+  }
+  .actions {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  h1 {
+    font-size: 16px;
+  }
+  .room-stage {
+    width: 100%;
+  }
+  .game-footer {
+    padding: 7px 10px;
+    font-size: 10px;
+  }
+  .dialog {
+    padding: 24px 18px;
+  }
+  .option-grid {
+    grid-template-columns: 1fr;
+  }
+  .machine {
+    zoom: 0.58;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Lanterna azul e tinta invisível */
+.flashlight-beam {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s;
+  background: radial-gradient(
+    circle clamp(48px, 8vw, 110px) at var(--light-x, -200px)
+      var(--light-y, -200px),
+    oklch(0.72465 0.1473 251.769 / 0.38) 0%,
+    oklch(0.60965 0.21085 263.4 / 0.18) 55%,
+    oklch(0 0 0 / 0) 100%
+  );
+  mix-blend-mode: screen;
+}
+.room-stage.flashlight-ready .flashlight-beam {
+  opacity: 1;
+}
+.secret-number {
+  position: absolute;
+  z-index: 7;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: baseline;
+  gap: 0.25em;
+  font:
+    700 clamp(18px, 2.6vw, 36px)/1 "Courier New",
+    monospace;
+  color: var(--material-43);
+  text-shadow:
+    0 0 6px var(--material-44),
+    0 0 14px var(--material-45);
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.secret-number small {
+  font-size: 0.45em;
+  color: var(--material-46);
+}
+
+.secret-number.revealed {
+  opacity: 1;
+}
+
+.secret-one {
+  left: 30%;
+  top: 12%;
+}
+
+.secret-eight {
+  left: 62%;
+  top: 12%;
+}
+
+.secret-four {
+  left: 40%;
+  top: 88%;
+}
+
+.secret-three {
+  left: 86%;
+  top: 92%;
+}
+/* Gavetas sem legendas, dispostas verticalmente. */
+.drawer-list {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 3px;
+  width: min(100%, 260px);
+  margin: 16px auto 12px;
+  padding: 3px;
+  background: var(--surface-deep);
+}
+.drawer-choice {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 1;
+  padding: 0;
+  border: 0;
+  background: var(--surface-deep);
+  cursor: pointer;
+  transition: filter 150ms ease;
+}
+.drawer-choice img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  image-rendering: pixelated;
+}
+.drawer-choice:hover {
+  filter: brightness(1.15);
+}
+.drawer-choice:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 2px;
+}
+@media (max-width: 700px) {
+  .dialog h2 {
+    font-size: 30px;
+  }
+}
+
+.feedback-row p.is-ready {
+  color: var(--feedback-ready);
+}

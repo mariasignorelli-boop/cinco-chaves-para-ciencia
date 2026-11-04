@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Escape room educativo em pixel art sobre Ada Lovelace e a Máquina Analítica.">
+  <title>O Gabinete de Ada Lovelace — Escape Room</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  
+  <!-- Estrutura principal: barra superior, cenário da sala e rodapé -->
+  <main class="game-shell">
+
+    <!-- Barra superior: título da fase, progresso (X/5) e botões de ajuda/reinício -->
+    <header class="game-bar">
+      <div class="game-title"><span class="chapter">FASE 02</span><div><h1>O gabinete de Ada Lovelace</h1><p>Londres, 1843</p></div></div>
+      <strong id="progress" class="progress" aria-live="polite">0/5</strong>
+      <div class="actions">
+        <button class="icon-button" id="helpButton" aria-label="Como jogar" title="Como jogar">?</button>
+        <button class="icon-button" id="resetButton" aria-label="Reiniciar jogo" title="Reiniciar">↻</button>
+      </div>
+    </header>
+
+    <!-- Cenário da sala. Os botões .hotspot são pontos clicáveis invisíveis posicionados sobre cada objeto; data-puzzle diz qual enigma abrir. -->
+    <section class="room-stage" id="roomStage" aria-label="Gabinete vitoriano de Ada Lovelace">
+      <img class="room-image" src="cenario.png" width="1264" height="848" alt="Gabinete com estante, gaveteiro, retrato, computador mecânico, 
+      cartões perfurados na parede, mesa com caderno, pena e partitura, e Máquina Analítica">
+      <button class="hotspot books" data-puzzle="books" aria-label="Examinar estante vitoriana"></button>
+      <button class="hotspot drawers" data-puzzle="drawers" aria-label="Examinar gaveteiro"></button>
+      <button class="hotspot note" data-puzzle="note" aria-label="Examinar bilhete"></button>
+      <button class="hotspot portrait" data-puzzle="portrait" aria-label="Examinar retrato de Ada Lovelace"></button>
+      <button class="hotspot computer" data-puzzle="computer" aria-label="Examinar computador mecânico"></button>
+      <button class="hotspot cards" data-puzzle="cards" aria-label="Examinar cartões perfurados"></button>
+      <button class="hotspot engine" data-puzzle="engine" aria-label="Examinar Máquina Analítica"></button>
+
+      <!-- Brilho da lanterna azul (segue o mouse) e os quatro números escondidos em tinta invisível, junto às marcas I, II, III e IV -->
+      <div class="flashlight-beam" id="flashlightBeam" aria-hidden="true"></div>
+      <span class="secret-number secret-one" data-secret="1"><small>I</small>1</span>
+      <span class="secret-number secret-eight" data-secret="8"><small>II</small>8</span>
+      <span class="secret-number secret-four" data-secret="4"><small>III</small>4</span>
+      <span class="secret-number secret-three" data-secret="3"><small>IV</small>3</span>
+      <div class="scanlines" aria-hidden="true"></div>
+    </section>
+
+    <footer class="game-footer"><p id="roomPrompt">Explore a sala e examine os objetos.</p><span id="inventory" hidden>▣ LANTERNA AZUL</span><span id="timer">◷ 00:00</span></footer>
+  </main>
+
+  <!-- Janela de introdução: explica a missão e inicia o cronômetro -->
+  <div class="modal open" id="introModal" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+    <div class="dialog intro-dialog">
+      <span class="kicker">ARQUIVO Nº 02</span>
+      <h2 id="introTitle">O programa perdido</h2>
+       <p>As engrenagens que ativam a Máquina Analítica estão escondidas pelo gabinete. Resolva cinco desafios e faça o programa funcionar.</p>
+       <div class="mission"><strong>MISSÃO</strong><p>Encontre as cinco engrenagens. O cronômetro começa agora, observe cada detalhe com atenção.</p></div>
+      <button class="primary" id="startButton">COMEÇAR INVESTIGAÇÃO</button>
+    </div>
+  </div>
+
+  <!-- Janela de enigma: o conteúdo (alternativas, campo de texto, gavetas ou máquina final) é montado pelo script.js em #puzzleBody -->
+  <div class="modal" id="puzzleModal" role="dialog" aria-modal="true" aria-labelledby="puzzleTitle">
+    <div class="dialog">
+      <button class="close" id="closePuzzle" aria-label="Fechar">×</button>
+      <span class="kicker" id="puzzleKicker"></span>
+      <h2 id="puzzleTitle"></h2>
+      <p id="puzzleDescription"></p>
+      <div id="puzzleBody"></div>
+      <div class="feedback-row"><p id="feedback" aria-live="polite"></p><button class="hint-button" id="hintButton">Ver dica</button></div>
+      <p class="hint" id="hintText" hidden></p>
+    </div>
+  </div>
+
+  <!-- Janela de vitória: aparece quando a alavanca é acionada -->
+  <div class="modal" id="victoryModal" role="dialog" aria-modal="true" aria-labelledby="victoryTitle">
+    <div class="dialog victory-dialog">
+      <div class="victory-mark">⚙</div><span class="kicker">SALA CONCLUÍDA</span>
+      <h2 id="victoryTitle">A máquina executou o programa!</h2>
+      <p>Ada Lovelace percebeu que uma máquina poderia trabalhar não apenas com números, mas também com símbolos, música e ideias — uma visão pioneira da computação.</p>
+      <strong id="finalTime" class="final-time"></strong>
+      <blockquote>“A imaginação é a faculdade da descoberta.”</blockquote>
+      <button class="primary" id="playAgainButton">JOGAR NOVAMENTE</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
